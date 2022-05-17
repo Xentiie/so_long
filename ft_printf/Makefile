@@ -1,6 +1,7 @@
 
 LIBFT = ../libft
 NAME = libftprintf.a
+RM = rm -rf
 
 SRCS	=	./srcs/handle_c.c \
 			./srcs/handle_d.c \
@@ -10,8 +11,7 @@ SRCS	=	./srcs/handle_c.c \
 			./srcs/handle_u.c \
 			./srcs/handle_uX.c \
 			./srcs/handle_x.c \
-			./srcs/ft_printf.c \
-			./srcs/logger.c
+			./srcs/ft_printf.c
 
 CC = gcc
 
@@ -26,8 +26,7 @@ OBJS = 		handle_c.o \
 			handle_u.o \
 			handle_uX.o \
 			handle_x.o \
-			ft_printf.o \
-			logger.o
+			ft_printf.o
 
 $(NAME) :
 	$(MAKE) bonus -C $(LIBFT)
@@ -42,10 +41,10 @@ all : $(NAME)
 
 clean :
 	$(MAKE) clean -C $(LIBFT)
-	rm -rf $(OBJS)
+	$(RM) $(OBJS)
 
 fclean : clean
 	$(MAKE) fclean -C $(LIBFT)
-	rm -rf $(NAME)
+	$(RM) $(NAME)
 
 re : fclean all

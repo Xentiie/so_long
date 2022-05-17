@@ -64,11 +64,17 @@ typedef enum e_tile_type
 	SPAWN
 }	t_tile_type;
 
-t_vector2	new_v2(int x, int y);
-t_vector2_f	new_v2_f(float x, float y);
-t_vector3	new_v3(int x, int y, int z);
-t_vector3_f	new_v3_f(float x, float y, float z);
-t_vector4	new_v4(int x, int y, int z, int w);
-t_vector4_f	new_v4_f(float x, float y, float z, float w);
+t_vector2	v2(int x, int y);
+t_vector2_f	v2_f(float x, float y);
+t_vector3	v3(int x, int y, int z);
+t_vector3_f	v3_f(float x, float y, float z);
+t_vector4	v4(int x, int y, int z, int w);
+t_vector4_f	v4_f(float x, float y, float z, float w);
+t_vector2	*pv2(int x, int y);
+t_vector2_f	*pv2_f(float x, float y);
+t_vector3	*pv3(int x, int y, int z);
+t_vector3_f	*pv3_f(float x, float y, float z);
+t_vector4	*pv4(int x, int y, int z, int w);
+t_vector4_f	*pv4_f(float x, float y, float z, float w);
 
 #endif

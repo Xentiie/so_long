@@ -14,9 +14,6 @@
 
 static	int	char_is_separator(char c, char charset)
 {
-	int	i;
-
-	i = 0;
 	if (c == charset || c == '\0')
 		return (1);
 	return (0);

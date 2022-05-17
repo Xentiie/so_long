@@ -10,7 +10,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-
 NAME	=	libft.a	
 SRCS	=	ft_atoi.c \
 			ft_bzero.c \
@@ -87,7 +86,7 @@ OBJS_B	=	${SRCS_B:.c=.o}
 HEADER  =	./
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
-RM		=	rm -f
+RM		=	rm -rf
 
 .c.o:	
 			$(CC) $(CFLAGS) -I$(HEADER) -c $< -o $(<:.c=.o)

@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int static	test_element(t_list **new_element,
+static int	test_element(t_list **new_element,
 	t_list **lst, t_list **new_lst, void (*del)(void *))
 {
 	if (!*new_element)

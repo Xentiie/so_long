@@ -1,0 +1,27 @@
+/* XPM */
+static char *rock21651073118[] = {
+/* columns rows colors chars-per-pixel */
+"8 16 5 1 ",
+"  c None",
+". c gray30",
+"X c gray38",
+"o c #929292",
+"O c #AAAAAA",
+/* pixels */
+"        ",
+"        ",
+"        ",
+"   .    ",
+"  .O.   ",
+"  .O.   ",
+"  .O.   ",
+"  .OO.  ",
+" .oOO.  ",
+" .XoO.  ",
+" .oXX.  ",
+" .oooO. ",
+" .ooXO. ",
+" .oooXO.",
+" XoXoOO.",
+"        "
+};
