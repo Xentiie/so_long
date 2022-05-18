@@ -6,7 +6,7 @@
 /*   By: reclaire <reclaire@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:38:09 by reclaire          #+#    #+#             */
-/*   Updated: 2022/05/16 09:41:17 by reclaire         ###   ########.fr       */
+/*   Updated: 2022/05/18 15:02:57 by reclaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ void	init3(void)
 	char	*filename;
 	char	*tmp;
 
+	g_ame->ship_down = create_anim(2, "files/ship/ship_down");
+	g_ame->ship_up = create_anim(2, "files/ship/ship_up");
+	g_ame->ship_right = create_anim(2, "files/ship/ship_right");
+	g_ame->ship_left = create_anim(2, "files/ship/ship_left");
+	g_ame->mov_counter = 0;
+	g_ame->nums = create_anim(10, "files/num/num");
 	g_ame->collectibles = mmalloc(sizeof(t_image *) * 15);
 	i = 0;
 	while (i < 15)
@@ -87,6 +93,16 @@ void	init4(void)
 	g_ame->ennemy->current = g_ame->ennemy->anim_front->sprites[0];
 }
 
+void	init5(void)
+{
+	g_ame->player->player_pos = v2(0, 0);
+	g_ame->player->next_pos = v2(0, 0);
+	g_ame->player->anim_back = create_anim(4, "files/player/player_back");
+	g_ame->player->anim_rside = create_anim(4, "files/player/player_side");
+	g_ame->player->anim_front = create_anim(4, "files/player/player_front");
+	g_ame->player->anim_lside = create_anim(4, "files/player/player_rside");
+}
+
 void	init_game(char *map_path)
 {
 	init2(map_path);
@@ -98,28 +114,15 @@ void	init_game(char *map_path)
 	g_ame->time = 0;
 	g_ame->seed = dot2(v2_f(g_ame->screen_dim->x, g_ame->screen_dim->y),
 			v2_f(12.54, 51.15)) * 10;
-
 	g_ame->player = mmalloc(sizeof(t_player));
 	g_ame->player->mov_prog = 0;
 	g_ame->player->start_time = 0;
 	g_ame->player->is_moving = 0;
 	g_ame->player->is_in_water = 0;
-	g_ame->player->player_pos = v2(0, 0);
-	g_ame->player->next_pos = v2(0, 0);
-	g_ame->player->anim_back = create_anim(4, "files/player/player_back");
-	g_ame->player->anim_rside = create_anim(4, "files/player/player_side");
-	g_ame->player->anim_front = create_anim(4, "files/player/player_front");
-	g_ame->player->anim_lside = create_anim(4, "files/player/player_rside");
+	init5();
 	g_ame->player->current = g_ame->player->anim_front->sprites[0];
 	g_ame->portail = create_anim(5, "files/portail/portail");
 	g_ame->portail_curr = g_ame->portail->sprites[0];
-
-	g_ame->ship_down = create_anim(2, "files/ship/ship_down");
-	g_ame->ship_up = create_anim(2, "files/ship/ship_up");
-	g_ame->ship_right = create_anim(2, "files/ship/ship_right");
-	g_ame->ship_left = create_anim(2, "files/ship/ship_left");
-	g_ame->mov_counter = 0;
-	g_ame->nums = create_anim(10, "files/num/num");
 	init3();
 	init4();
 	init_counter();

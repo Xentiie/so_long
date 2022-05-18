@@ -6,14 +6,13 @@
 /*   By: reclaire <reclaire@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 16:18:53 by reclaire          #+#    #+#             */
-/*   Updated: 2022/05/16 09:41:17 by reclaire         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:36:10 by reclaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "random.h"
 #include "mmath.h"
 #include <math.h>
-
 
 #define SCALE 2.5
 #define BASE_ROUGHNESS 1

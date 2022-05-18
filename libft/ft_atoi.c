@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: reclaire <reclaire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: reclaire <reclaire@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 13:51:00 by reclaire          #+#    #+#             */
-/*   Updated: 2022/03/03 15:50:32 by reclaire         ###   ########.fr       */
+/*   Updated: 2022/05/17 22:52:17 by reclaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-//int	is_num(char c)
-//{
-//	if (c >= '0' && c <= '9')
-//		return (1);
-//	return (0);
-//}
 
 int	ft_atoi(const char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: reclaire <reclaire@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:49:15 by reclaire          #+#    #+#             */
-/*   Updated: 2022/05/16 09:41:17 by reclaire         ###   ########.fr       */
+/*   Updated: 2022/05/17 15:11:58 by reclaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,18 @@
 
 #define UPDATE_RATE 1
 #define PLAYER_MOVE_FRAMES 30.0
-#define max(a,b) (((a) > (b)) ? (a) : (b))
+
+void	update_sprite_pla2(float t)
+{
+	if (g_ame->player->player_pos.x - g_ame->player->next_pos.x < 0)
+		g_ame->player->current = eval_anim(g_ame->player->anim_lside, t);
+	if (g_ame->player->player_pos.x - g_ame->player->next_pos.x > 0)
+		g_ame->player->current = eval_anim(g_ame->player->anim_rside, t);
+	if (g_ame->player->player_pos.y - g_ame->player->next_pos.y < 0)
+		g_ame->player->current = eval_anim(g_ame->player->anim_front, t);
+	if (g_ame->player->player_pos.y - g_ame->player->next_pos.y > 0)
+		g_ame->player->current = eval_anim(g_ame->player->anim_back, t);
+}
 
 void	update_sprite_pla(void)
 {
@@ -44,48 +55,18 @@ void	update_sprite_pla(void)
 			g_ame->player->current = eval_anim(g_ame->ship_up, t);
 	}
 	else
-	{
-		if (g_ame->player->player_pos.x - g_ame->player->next_pos.x < 0)
-			g_ame->player->current = eval_anim(g_ame->player->anim_lside, t);
-		if (g_ame->player->player_pos.x - g_ame->player->next_pos.x > 0)
-			g_ame->player->current = eval_anim(g_ame->player->anim_rside, t);
-		if (g_ame->player->player_pos.y - g_ame->player->next_pos.y < 0)
-			g_ame->player->current = eval_anim(g_ame->player->anim_front, t);
-		if (g_ame->player->player_pos.y - g_ame->player->next_pos.y > 0)
-			g_ame->player->current = eval_anim(g_ame->player->anim_back, t);
-	}
-}
-
-void	register_movement(t_vector2 direction)
-{
-	t_vector2	map_pos;
-
-	if (g_ame->player->is_moving == 1)
-		return ;
-	g_ame->player->next_pos = v2(g_ame->player->player_pos.x + direction.x * g_ame->pixel_per_tile,
-							g_ame->player->player_pos.y + direction.y * g_ame->pixel_per_tile);
-	map_pos = screen_to_map(g_ame->player->next_pos);
-	if (g_ame->map[map_pos.y][map_pos.x] == WALL)
-		g_ame->player->is_moving = 0;
-	else
-	{
-		g_ame->player->is_moving = 1;
-		g_ame->mov_counter++;
-	}
-	g_ame->player->dir = direction;
-	g_ame->player->start_time = g_ame->time;
+		update_sprite_pla2(t);
 }
 
 void	update_pos(void)
 {
-
 	if (g_ame->player->is_moving != 1)
 		return ;
 	g_ame->player->player_pos = v2(
-		g_ame->player->player_pos.x + g_ame->player->dir.x * 2.4,
-		g_ame->player->player_pos.y + g_ame->player->dir.y * 2.4);
+			g_ame->player->player_pos.x + g_ame->player->dir.x * 2.4,
+			g_ame->player->player_pos.y + g_ame->player->dir.y * 2.4);
 	if (distance(v2_f(g_ame->player->player_pos.x, g_ame->player->player_pos.y),
-		v2_f(g_ame->player->next_pos.x, g_ame->player->next_pos.y)) < 4)
+			v2_f(g_ame->player->next_pos.x, g_ame->player->next_pos.y)) < 4)
 	{
 		g_ame->player->player_pos = g_ame->player->next_pos;
 		g_ame->player->is_moving = 0;
@@ -117,39 +98,23 @@ t_color	eval_player(t_rendering_data data)
 
 void	update_player(t_rendering_element *elem)
 {
-	t_vector2	pos;
-	t_vector2	size;
 	t_vector2_f	feet_pos;
 	float		v;
 
 	if ((int)g_ame->time % UPDATE_RATE != 0)
 		return ;
-	pos = *elem->element_pos;
-	size = elem->element_size;
-	update(pos, size, 5);
 	update_pos();
-
 	feet_pos = v2_f(g_ame->player->player_pos.x + elem->element_size.x / 2.0,
-		g_ame->player->player_pos.y + elem->element_size.y);
-
-
-	//c = getpixel(g_ame->background, feet_pos.x, feet_pos.y);
-	//if (c.r >= 22 && c.r <= 66 && c.g >= 46 && c.g <= 194 && c.b >= 102 && c.b <= 245)
-	//	g_ame->ennemy->is_in_water = 1;
-	//else
-	//	g_ame->ennemy->is_in_water = 0;	
-	v = lpnoise(feet_pos.x / g_ame->screen_dim->x, feet_pos.y / g_ame->screen_dim->y, v2_f(g_ame->seed, g_ame->seed)); // Ca ne tile pas avec localpos ???????,
+			g_ame->player->player_pos.y + elem->element_size.y);
+	v = lpnoise(feet_pos.x / g_ame->screen_dim->x,
+			feet_pos.y / g_ame->screen_dim->y, v2_f(g_ame->seed, g_ame->seed));
 	v = map(v, (t_vector2_f){.x = 0.5, .y = 1},
 			(t_vector2_f){.x = 0, .y = 1});
 	if (v < SEA_LEVEL)
 		g_ame->player->is_in_water = 1;
 	else
 		g_ame->player->is_in_water = 0;
-
 	update_sprite_pla();
 	elem->element_pos->x = g_ame->player->player_pos.x;
 	elem->element_pos->y = g_ame->player->player_pos.y;
-	pos = *elem->element_pos;
-	size = elem->element_size;
-	update(pos, size, -1);
 }

@@ -6,7 +6,7 @@
 /*   By: reclaire <reclaire@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 22:15:08 by reclaire          #+#    #+#             */
-/*   Updated: 2022/05/16 09:41:48 by reclaire         ###   ########.fr       */
+/*   Updated: 2022/05/18 15:05:46 by reclaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 
 static t_list	*g_entities;
 
-int i;
-
 void	add_entity(void (*f)(t_rendering_element *), t_rendering_element *elem)
 {
 	t_list		*new;
@@ -30,7 +28,6 @@ void	add_entity(void (*f)(t_rendering_element *), t_rendering_element *elem)
 	entity->f = f;
 	new = ft_lstnew(entity);
 	ft_lstadd_back(&g_entities, new);
-	i = 0;
 }
 
 void	destroy_entity(void *data)
@@ -58,7 +55,8 @@ int	update_game(void	*p_game)
 	game = (t_game *)p_game;
 	ft_lstiter(g_entities, &update_entity);
 	update(v2(0, 0), *g_ame->screen_dim, -1);
-	mlx_put_image_to_window(game->mlx, game->mlx_win, game->render_img->img, 0, 0);
+	mlx_put_image_to_window(game->mlx,
+		game->mlx_win, game->render_img->img, 0, 0);
 	game->time++;
 	return (1);
 }

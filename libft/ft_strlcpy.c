@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: reclaire <reclaire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: reclaire <reclaire@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/15 13:47:21 by reclaire          #+#    #+#             */
-/*   Updated: 2022/03/03 15:50:32 by reclaire         ###   ########.fr       */
+/*   Created: 2022/03/16 19:06:59 by reclaire          #+#    #+#             */
+/*   Updated: 2022/05/17 23:33:32 by reclaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: reclaire <reclaire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: reclaire <reclaire@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:07:15 by reclaire          #+#    #+#             */
-/*   Updated: 2022/03/17 14:18:55 by reclaire         ###   ########.fr       */
+/*   Updated: 2022/05/18 15:11:15 by reclaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+char	*ft_strcat(char *dest, char *src);
+
+//Compares two strings
+int		ft_strcmp(char *s1, char *s2);
 
 //Check if character is digit or alpha.
 int		ft_isalnum(int c);
@@ -53,31 +58,41 @@ void	*ft_memchr(const void *s, int c, size_t n);
 //Compares byte string s1 against byte string s2.
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 
-//Copies n bytes from memory area src to memory area dst. 
-//The two strings may not overlap. If they do use ft_memmove instead.
+/*
+Copies n bytes from memory area src to memory area dst. 
+The two strings may not overlap. If they do use ft_memmove instead.
+*/
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 
-//Copies len bytes from string src to string dst. The two strings may overlap; 
-//the copy is always done in a non-destructive manner.
+/*
+Copies len bytes from string src to string dst. The two strings may overlap; 
+the copy is always done in a non-destructive manner.
+*/
 void	*ft_memmove(void *dst, const void *src, size_t len);
 
 //Writes len bytes of value c.
 void	*ft_memset(void *b, int c, size_t len);
 
-//Locates the first occurrence of c in the string pointed to by s.
-//The terminating null character taken into account.
+/*
+Locates the first occurrence of c in the string pointed to by s.
+The terminating null character taken into account.
+*/
 char	*ft_strchr(const char *s, int c);
 
 //Duplicates the string s1 into a new char array
 char	*ft_strdup(const char *s1);
 
-//Appends string src to the end of dst.  
-//It will append at most dstsize - strlen(dst) - 1 characters. 
-//It will then NUL-terminate the new string
+/*
+Appends string src to the end of dst.  
+It will append at most dstsize - strlen(dst) - 1 characters. 
+It will then NUL-terminate the new string
+*/
 size_t	ft_strlcat(char *dest, char *src, size_t size);
 
-//Copies up to dstsize - 1 characters from the string src to dst, 
-//NUL-terminating the result if dstsize is not 0.
+/*
+Copies up to dstsize - 1 characters from the string src to dst, 
+NUL-terminating the result if dstsize is not 0.
+*/
 size_t	ft_strlcpy(char *dest, char *src, size_t size);
 
 //Returns the length of string s
@@ -86,11 +101,13 @@ size_t	ft_strlen(const char *s);
 //Compares string s1 against string s2.
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
-//Locates the first occurrence of the null-terminated string needle in the 
-//string haystack, where not more than len characters are searched.
-//If to_find is an empty string, str is returned; if to_find occurs 
-//nowhere in str, NULL is returned; otherwise a pointer to the first
-//character of the first occurrence of to_find is returned.
+/*
+Locates the first occurrence of the null-terminated string needle in the 
+string haystack, where not more than len characters are searched.
+If to_find is an empty string, str is returned; if to_find occurs 
+nowhere in str, NULL is returned; otherwise a pointer to the first
+character of the first occurrence of to_find is returned.
+*/
 char	*ft_strnstr(const char *str, const char *to_find, size_t len);
 
 //Locates the last occurrence of c in string s
@@ -117,8 +134,10 @@ char	**ft_split(char const *s, char c);
 //Converts an int to an string.
 char	*ft_itoa(int n);
 
-//Applies function f to each characters in string s, and returns
-//a new string of all the results of f.
+/*
+Applies function f to each characters in string s, and returns
+a new string of all the results of f.
+*/
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
 //Applies function f to each characters in string s.
@@ -130,115 +149,68 @@ void	ft_putchar_fd(char c, int fd);
 //Write string s in file descriptor fd.
 void	ft_putstr_fd(char *s, int fd);
 
-//Write string s in file descriptor fd, and appends an end of line character
-//at the end of the string.
+//Write s in file fd, and append a line end.
 void	ft_putendl_fd(char *s, int fd);
 
 //Write a number in file descriptor fd.
 void	ft_putnbr_fd(int n, int fd);
 
-//Copies src into dest
-char	*ft_strcpy(char *dest, char *src);
+//Read the next line in fd, NULL if all lines are read.
+char	*ft_gnl(int fd);
 
-//Copies n characters from src into dest
-char	*ft_strncpy(char *dest, char *src, unsigned int n);
-
-//Check if str is alpha only (a-z, A-Z)
-int		ft_str_is_alpha(char *str);
-
-//Check if str is numerical only (0-9)
-int		ft_str_is_numeric(char *str);
-
-//Check if str is uppercase characters only (A-Z)
-int		ft_str_is_uppercase(char *str);
-
-//Check if str is lowercase characters only (a-z)
-int		ft_str_is_lowercase(char *str);
-
-//Check if every character of str is printable
-int		ft_str_is_printable(char *str);
-
-//Sets str in uppercase
-char	*ft_strupcase(char *str);
-
-//Sets str in lowercase
-char	*ft_strlowcase(char *str);
-
-//Capitalize every letter after a non-alpha letter
-char	*ft_strcapitalize(char *str);
-
-//Compares string s1 against s2
-int		ft_strcmp(char *s1, char *s2);
-
-//Concatenate dest behind src.
-char	*ft_strcat(char *dest, char *src);
-
-//Concatenate n characters from dest behind src.
-char	*ft_strncat(char *dest, char *src, unsigned int nb);
-
-//Search to_find in str.
-char	*ft_strstr(char *str, char *to_find);
-
-//Raises nb to power
-int		ft_pow(int nb, int power);
-
-//Square root of nb (integers only)
-int		ft_sqrt(int nb);
-
-//Check if a number is prime.
-int		ft_is_prime(int nb);
-
-//Find the first prime from nb.
-int		ft_find_next_prime(int nb);
-
-//Creates an array of int from min to max.
-int		*ft_range(int min, int max);
-
-//Same as ft_range, except it returns the size of the array.
-int		ft_nrange(int **range, int min, int max);
-
-//Check if the specified base is valid.
-int		ft_checkbase(char *base);
+//Returns the index of the first occurrence of c in str, -1 if not found.
+int		ft_getindex(char *str, char c);
 
 //Returns the magnitude of n.
 size_t	ft_magnitude(long n);
 
-//Same as ft_itoa, but for unsigned int.
+//Check if a number is prime.
+int		ft_is_prime(int nb);
+
+//Raises nb to power
+int		ft_pow(int nb, int power);
+
+//Creates an array of int from min to max.
+int		*ft_range(int min, int max);
+
+//Creates an array of int from min to max and returns the size of the array.
+int		ft_nrange(int **range, int min, int max);
+
+//Itoa for unsigned int
 char	*ft_uitoa(unsigned int n);
 
-//Returns the index of the first occurrence of c in str.
-//Returns -1 if not found.
-int		ft_getindex(char *str, char c);
+//Printf...
+int		ft_printf(const char *str, ...);
 
-//Converts a number to base 10
-int		ft_atoi_base(char *nbr, char *base);
-
-//Creates a new t_list
+//Creates a new list element using content
 t_list	*ft_lstnew(void *content);
 
-//Add a new element in the front of the list
+//Adds new at the front of lst.
 void	ft_lstadd_front(t_list **lst, t_list *new);
 
-//Returns the size of the list
+//Returns the size of lst.
 int		ft_lstsize(t_list *lst);
 
-//Returns the last element of the list
+//Returns the last element of lst.
 t_list	*ft_lstlast(t_list *lst);
 
-//Appends a new element to the list
+//Adds new at the end of lst.
 void	ft_lstadd_back(t_list **lst, t_list *new);
 
-//Delete one element from the list
+//Deletes an element from lst, using del on it's content.
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 
-//Delete all elements from the list
+//Iterates through lst, deleting every element (see ft_lstdelone).
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 
-//Execute f for each element of the list
+//Iterates through lst, using f on each element's content.
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 
-//Execute f for each element of the list and returns a new list
-//from the results of f
+/*
+Iterates through "lst", applies "f" on every
+element's content, puts results in a new list and returns it.
+"del" is used if anything goes wrong.
+*/
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 #endif

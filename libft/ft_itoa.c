@@ -6,31 +6,31 @@
 /*   By: reclaire <reclaire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 20:49:50 by reclaire          #+#    #+#             */
-/*   Updated: 2022/03/17 14:19:43 by reclaire         ###   ########.fr       */
+/*   Updated: 2022/03/03 15:50:32 by reclaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-//static int	num_digits(long n)
-//{
-//	int	r;
-//
-//	r = 0;
-//	if (n < 0)
-//	{
-//		n *= -1;
-//		r++;
-//	}
-//	if (n == 0)
-//		return (1);
-//	while (n != 0)
-//	{
-//		n /= 10;
-//		r++;
-//	}
-//	return (r);
-//}
+static int	num_digits(long n)
+{
+	int	r;
+
+	r = 0;
+	if (n < 0)
+	{
+		n *= -1;
+		r++;
+	}
+	if (n == 0)
+		return (1);
+	while (n != 0)
+	{
+		n /= 10;
+		r++;
+	}
+	return (r);
+}
 
 void	check_negative(long *nb, char *str)
 {
@@ -48,7 +48,7 @@ char	*ft_itoa(int n)
 	char	*str;
 
 	nb = n;
-	i = ft_magnitude(nb);
+	i = num_digits(nb);
 	str = malloc((i + 1) * sizeof(char));
 	if (str == NULL)
 		return (NULL);

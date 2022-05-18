@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ttypes3.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: reclaire <reclaire@student.42mulhouse.f    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/17 14:34:29 by reclaire          #+#    #+#             */
+/*   Updated: 2022/05/17 14:34:56 by reclaire         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ttypes.h"
 #include <stdlib.h>
 
@@ -20,7 +32,7 @@ t_vector4	*pv4(int x, int y, int z, int w)
 	p->x = x;
 	p->y = y;
 	p->z = z;
-    p->w = w;
+	p->w = w;
 	return (p);
 }
 
@@ -32,6 +44,6 @@ t_vector4_f	*pv4_f(float x, float y, float z, float w)
 	p->x = x;
 	p->y = y;
 	p->z = z;
-    p->w = w;
+	p->w = w;
 	return (p);
 }

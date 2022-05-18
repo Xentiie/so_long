@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pnoise.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: reclaire <reclaire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: reclaire <reclaire@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 00:00:43 by reclaire          #+#    #+#             */
-/*   Updated: 2022/04/07 17:37:34 by reclaire         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:36:22 by reclaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-static int *g_perm;
+static int	*g_perm;
 
 static int	*parse_permutations(char *str)
 {

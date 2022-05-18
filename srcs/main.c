@@ -6,7 +6,7 @@
 /*   By: reclaire <reclaire@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 16:43:25 by reclaire          #+#    #+#             */
-/*   Updated: 2022/05/16 09:41:17 by reclaire         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:50:49 by reclaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,58 +15,17 @@
 #include "rendering.h"
 #include "random.h"
 #include "mmath.h"
-
 #include <stdlib.h>
 #include <math.h>
 #include <mlx.h>
 
-void	add_rocks(t_vector2 pos)
-{
-	t_vector2	*elem_pos;
-	t_vector2_f	rock_p;
-	int			i;
-
-	i = g_ame->seed;
-	if (rnd(&i) > 0.2f)
-	{
-		rock_p = v2_f(-5 + (int)rnd_range(-4, 7, &i), -5 + (int)rnd_range(-10, 10, &i));
-		elem_pos = pv2((pos.x + 1) * g_ame->pixel_per_tile + rock_p.x,
-				pos.y * g_ame->pixel_per_tile - 30 + rock_p.y);
-		add_graphics(&eval_rocks, 12, elem_pos,
-			v2(32, 64));
-
-		rock_p = v2_f(35 + (int)rnd_range(-7, 7, &i), 5 + (int)rnd_range(-10, 10, &i));
-		elem_pos = pv2((pos.x + 1) * g_ame->pixel_per_tile + rock_p.x,
-				pos.y * g_ame->pixel_per_tile - 30 + rock_p.y);
-		add_graphics(&eval_rocks, 12, elem_pos,
-			v2(32, 64));
-	}
-	else
-	{
-		rock_p = v2_f((int)rnd_range(5, 20, &i), -5 + (int)rnd_range(-10, 10, &i));
-		elem_pos = pv2((pos.x + 1) * g_ame->pixel_per_tile + rock_p.x,
-				pos.y * g_ame->pixel_per_tile - 30 + rock_p.y);
-		add_graphics(&eval_rocks, 12, elem_pos,
-			v2(32, 64));
-	}
-	//rock_p = v2_f(25, 0);
-	//elem_pos = pv2((pos.x + 1) * g_ame->pixel_per_tile + rock_p.x,
-	//		pos.y * g_ame->pixel_per_tile - 30 + rock_p.y);
-	//add_graphics(&eval_rocks, 4, elem_pos,
-	//	v2(32, 64));
-	
-}
-
 void	setup_tiles(void)
 {
 	t_vector2	pos;
-	t_vector2	*elem_pos;
 
-	pos = v2(0,0);
+	pos = v2(0, 0);
 	while (pos.y < g_ame->map_dim->y)
 	{
-		//add_graphics(&eval_sky, 2, pv2(0, pos.y * g_ame->pixel_per_tile),
-		//	v2(g_ame->pixel_per_tile, g_ame->pixel_per_tile));
 		while (pos.x < g_ame->map_dim->x)
 		{
 			if (pos.x == 0 || pos.x == g_ame->map_dim->x - 2
@@ -78,29 +37,15 @@ void	setup_tiles(void)
 			if (g_ame->map[pos.y][pos.x] == WALL)
 				add_rocks(pos);
 			if (g_ame->map[pos.y][pos.x] == ITEM)
-			{
-				elem_pos = pv2((pos.x + 1) * g_ame->pixel_per_tile,
-						pos.y * g_ame->pixel_per_tile - 30);
-				add_graphics(&eval_item, 4, elem_pos,
+				add_graphics(&eval_item, 4,
+					pv2((pos.x + 1) * g_ame->pixel_per_tile,
+						pos.y * g_ame->pixel_per_tile - 30),
 					v2(g_ame->pixel_per_tile - 1, g_ame->pixel_per_tile - 1));
-			}
 			pos.x++;
 		}
 		pos.x = 0;
 		pos.y++;
 	}
-}
-
-t_color	eval_bg(t_rendering_data data)
-{
-    t_color		out;
-	t_vector2	p;
-    t_image     *img;
-
-    img = g_ame->background;
-	p = v2(lerp(0, img->size->x, data.local_pos.x), lerp(0, img->size->y, data.local_pos.y));
-	out = getpixel(img, p.x, p.y);
-	return (out);
 }
 
 void	setup_bg(void)
@@ -131,6 +76,20 @@ void	setup_bg(void)
 	}
 }
 
+void	setup_entities2(void)
+{
+	add_entity(&update_waterfall,
+		add_graphics(&eval_waterfall, 0,
+			pv2(0, g_ame->screen_dim->y / 2),
+			v2(g_ame->screen_dim->x, g_ame->screen_dim->y / 2)));
+	g_ame->ennemy->ennemy_pos = g_ame->player->player_pos;
+	add_entity(&update_ennemy,
+		add_graphics(&eval_ennemy, 15,
+			pv2(g_ame->ennemy->ennemy_pos.x,
+				g_ame->ennemy->ennemy_pos.y),
+			v2(g_ame->pixel_per_tile, g_ame->pixel_per_tile)));
+}
+
 void	setup_entites(void)
 {
 	t_vector2			pos;
@@ -155,61 +114,7 @@ void	setup_entites(void)
 		pos.x = 0;
 		pos.y++;
 	}
-	add_entity(&update_waterfall,
-		add_graphics(&eval_waterfall, 0,
-			pv2(0, g_ame->screen_dim->y / 2),
-			v2(g_ame->screen_dim->x, g_ame->screen_dim->y / 2)));
-	g_ame->ennemy->ennemy_pos = g_ame->player->player_pos;
-	add_entity(&update_ennemy,
-		add_graphics(&eval_ennemy, 15,
-			pv2(g_ame->ennemy->ennemy_pos.x,
-				g_ame->ennemy->ennemy_pos.y),
-			v2(g_ame->pixel_per_tile, g_ame->pixel_per_tile)));
-}
-
-int	handle_keypress(int keycode, void *useless)
-{
-	useless = useless;
-#ifdef __linux__
-	if (keycode == 65307)
-		quit_signal();
-	if (keycode == 122)
-		register_movement(v2(0, -1));
-	if (keycode == 113)
-		register_movement(v2(-1, 0));
-	if (keycode == 115)
-		register_movement(v2(0, 1));
-	if (keycode == 100)
-		register_movement(v2(1, 0));
-#endif
-#ifdef __APPLE__
-	if (keycode == 65307)
-		quit_signal();
-	if (keycode == 13)
-		register_movement(v2(0, -1));
-	if (keycode == 0)
-		register_movement(v2(-1, 0));
-	if (keycode == 1)
-		register_movement(v2(0, 1));
-	if (keycode == 2)
-		register_movement(v2(1, 0));
-#endif
-	return (0);
-}
-
-t_color	eval_sky3(t_rendering_data data)
-{
-	t_vector2_f	global_uv;
-	float		v;
-
-	global_uv = v2_f((float)data.global_pos.x / g_ame->screen_dim->x,
-			(float)data.global_pos.y / g_ame->screen_dim->y);
-	v = fabs(lpnoise(global_uv.x * 2 + g_ame->time / 200.0, global_uv.y, v2_f(g_ame->seed, g_ame->seed)));
-	if (v > 0.91)
-	{
-		return (new_color(255 / v / 1.1, 255 / v / 1.1, 255 / v / 1.1, 1));
-	}
-	return (new_color(30, 160, 250, 1));
+	setup_entities2();
 }
 
 int	main(int argc, char **argv)
@@ -219,11 +124,9 @@ int	main(int argc, char **argv)
 	init_game(argv[1]);
 	g_ame->rocks = create_anim(3, "files/rock");
 	init_noise();
-	
 	add_graphics(&eval_bg, 1, pv2(0, 0), *g_ame->screen_dim);
-	add_graphics(&eval_sky3, 0, pv2(0, 0), v2(g_ame->screen_dim->x, g_ame->screen_dim->y / 2));
-
-
+	add_graphics(&eval_sky3, 0, pv2(0, 0),
+		v2(g_ame->screen_dim->x, g_ame->screen_dim->y / 2));
 	setup_tiles();
 	setup_entites();
 	setup_bg();

@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mmath2.c                                           :+:      :+:    :+:   */
+/*   ft_gnl.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reclaire <reclaire@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/30 22:59:07 by reclaire          #+#    #+#             */
-/*   Updated: 2022/05/17 14:54:55 by reclaire         ###   ########.fr       */
+/*   Created: 2022/03/03 14:09:34 by reclaire          #+#    #+#             */
+/*   Updated: 2022/05/17 22:46:22 by reclaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mmath.h"
+#ifndef FT_GNL_H
+# define FT_GNL_H
 
-float	fade(float t)
-{
-	return (t * t * t * (t * (t * 6 - 15) + 10));
-}
+# include <stdlib.h>
+# include <unistd.h>
+# include "libft.h"
 
-float	dot2(t_vector2_f a, t_vector2_f b)
+typedef struct s_save
 {
-	return (a.x * b.x + a.y * b.y);
-}
+	int				fd;
+	char			*save;
+}	t_save;
 
-float	dot3(t_vector3_f a, t_vector3_f b)
-{
-	return (a.x * b.x + a.y * b.y + a.z * b.z);
-}
+t_save	*gnl_lstnew(int fd);
+t_list	*gnl_addback(t_list **lst, int fd);
+void	gnl_lstfree(t_list **first, int fd);
 
-float	frac(float v)
-{
-	return (v - ((long)v));
-}
-
-float	step(float treshold, float v)
-{
-	return (v > treshold);
-}
+#endif

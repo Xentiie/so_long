@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mmath.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: reclaire <reclaire@student.42.fr>          +#+  +:+       +#+        */
+/*   By: reclaire <reclaire@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 17:06:20 by reclaire          #+#    #+#             */
-/*   Updated: 2022/04/06 17:31:13 by reclaire         ###   ########.fr       */
+/*   Updated: 2022/05/17 14:49:05 by reclaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ float	    clampf(float min, float max, float v);
 int	        clamp(int min, int max, int v);
 t_vector2_f	lerp_v2(t_vector2_f v_1, t_vector2_f v_2, float t);
 t_vector3_f normalize(t_vector3_f v);
+int	        is_inside_rectangle(int x, int y, t_vector2 *rectangle_pos,
+		        t_vector2 rectangle_size);
 
 #endif

@@ -6,15 +6,13 @@
 /*   By: reclaire <reclaire@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 16:31:36 by reclaire          #+#    #+#             */
-/*   Updated: 2022/05/16 09:41:36 by reclaire         ###   ########.fr       */
+/*   Updated: 2022/05/18 14:54:59 by reclaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rendering.h"
 #include "libft.h"
 #include "game.h"
-
-
 
 void	destroy_graphics(t_rendering_element *elem)
 {
@@ -44,9 +42,6 @@ void	destroy_graphics(t_rendering_element *elem)
 	}
 }
 
-/*
-	Ajoute un element a la chaine de render.
-*/
 t_rendering_element	*add_graphics(t_color (*eval)(t_rendering_data),
 			int layer, t_vector2 *pos, t_vector2 size)
 {

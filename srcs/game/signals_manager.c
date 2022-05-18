@@ -6,15 +6,13 @@
 /*   By: reclaire <reclaire@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 16:58:10 by reclaire          #+#    #+#             */
-/*   Updated: 2022/05/16 09:41:17 by reclaire         ###   ########.fr       */
+/*   Updated: 2022/05/18 15:07:23 by reclaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include "game.h"
-#include "ft_printf.h"
 #include "random.h"
-
 
 void	free_map(void)
 {
@@ -41,6 +39,15 @@ void	quit_signal2(void)
 	while (i < 15)
 		free_img(g_ame->collectibles[i++]);
 	free(g_ame->collectibles);
+	free_anim(g_ame->player->anim_back);
+	free_anim(g_ame->player->anim_front);
+	free_anim(g_ame->player->anim_lside);
+	free_anim(g_ame->player->anim_rside);
+	free(g_ame->player);
+	free_anim(g_ame->ennemy->anim_back);
+	free_anim(g_ame->ennemy->anim_front);
+	free_anim(g_ame->ennemy->anim_lside);
+	free_anim(g_ame->ennemy->anim_rside);
 }
 
 void	free_anim(t_anim *anim)
@@ -54,19 +61,13 @@ void	free_anim(t_anim *anim)
 	free(anim);
 }
 
+//	mlx_loop_end(g_ame->mlx);
+//	mlx_destroy_display(g_ame->mlx);
+//free(g_ame->exit_pos); est free dans free_graphics
 void	quit_signal(void)
 {
-	mlx_loop_end(g_ame->mlx);
+	free_graphics();
 	quit_signal2();
-	free_anim(g_ame->player->anim_back);
-	free_anim(g_ame->player->anim_front);
-	free_anim(g_ame->player->anim_lside);
-	free_anim(g_ame->player->anim_rside);
-	free(g_ame->player);
-	free_anim(g_ame->ennemy->anim_back);
-	free_anim(g_ame->ennemy->anim_front);
-	free_anim(g_ame->ennemy->anim_lside);
-	free_anim(g_ame->ennemy->anim_rside);
 	free(g_ame->ennemy);
 	free_anim(g_ame->nums);
 	free_anim(g_ame->ship_down);
@@ -75,14 +76,11 @@ void	quit_signal(void)
 	free_anim(g_ame->ship_up);
 	free_anim(g_ame->portail);
 	free_anim(g_ame->rocks);
-	free(g_ame->exit_pos);
 	free_map();
-	free_graphics();
 	free_entities();
 	free_perms();
 	mlx_clear_window(g_ame->mlx, g_ame->mlx_win);
 	mlx_destroy_window(g_ame->mlx, g_ame->mlx_win);
-	mlx_destroy_display(g_ame->mlx);
 	free(g_ame->mlx);
 	free(g_ame);
 	exit(EXIT_SUCCESS);

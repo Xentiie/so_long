@@ -6,7 +6,7 @@
 /*   By: reclaire <reclaire@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 20:26:43 by reclaire          #+#    #+#             */
-/*   Updated: 2022/05/06 01:08:09 by reclaire         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:57:35 by reclaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,13 @@ t_game	*g_ame;
 
 void		error_signal(char	*msg);
 void		quit_signal(void);
+void		free_anim(t_anim *anim);
 
 //map_parser.c
 
+int			count_chars(char *s, char c);
+t_tile_type	parse_c(char c);
+void		is_filename_valid(char *str);
 t_tile_type	**parse_map(char *file_path, int *size_x, int *size_y);
 
 //background.c
@@ -125,8 +129,10 @@ void		free_entities(void);
 
 //sky.c
 
+int			is_inside(t_vector2_f p);
 t_color		eval_sky(t_rendering_data data);
 t_color		eval_waterfall(t_rendering_data data);
+t_color		eval_ground(t_vector2_f uv);
 void		update_waterfall(t_rendering_element *elem);
 
 //player.c
@@ -142,7 +148,7 @@ t_color		eval_item(t_rendering_data data);
 //exit.c
 
 t_color		eval_exit(t_rendering_data data);
-void 		update_exit(t_rendering_element *elem);
+void		update_exit(t_rendering_element *elem);
 
 //init_game.c
 
@@ -152,6 +158,7 @@ void		init_game(char *map_path);
 
 t_color		eval_ennemy(t_rendering_data data);
 void		update_ennemy(t_rendering_element *elem);
+void		update_pos_ennemy(void);
 
 //animation.c
 
@@ -160,9 +167,16 @@ t_image		*eval_anim(t_anim *anim, float t);
 
 //counter.c
 
-void  		update_counter(void);
-void   		init_counter(void);
-t_color	    eval_count1(t_rendering_data data);
-t_color	    eval_count2(t_rendering_data data);
+void		update_counter(void);
+void		init_counter(void);
+t_color		eval_count1(t_rendering_data data);
+t_color		eval_count2(t_rendering_data data);
+
+//main
+
+t_color		eval_bg(t_rendering_data data);
+void		add_rocks(t_vector2 pos);
+int			handle_keypress(int keycode, void *useless);
+t_color		eval_sky3(t_rendering_data data);
 
 #endif

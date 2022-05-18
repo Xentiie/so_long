@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mmath2.c                                           :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reclaire <reclaire@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/30 22:59:07 by reclaire          #+#    #+#             */
-/*   Updated: 2022/05/17 14:54:55 by reclaire         ###   ########.fr       */
+/*   Created: 2022/03/16 16:55:27 by reclaire          #+#    #+#             */
+/*   Updated: 2022/05/17 23:31:42 by reclaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mmath.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-float	fade(float t)
-{
-	return (t * t * t * (t * (t * 6 - 15) + 10));
-}
+# include <stdarg.h>
+# include "libft.h"
+# include <stdint.h>
+# ifndef UINT_MAX
+#  define UINT_MAX   4294967295U
+# endif
 
-float	dot2(t_vector2_f a, t_vector2_f b)
-{
-	return (a.x * b.x + a.y * b.y);
-}
+int	handle_c(unsigned int c);
+int	handle_d(int i);
+int	handle_i(int i);
+int	handle_p(uintptr_t p);
+int	handle_s(char *str);
+int	handle_u(unsigned int i);
+int	handle_ux(unsigned int i);
+int	handle_x(unsigned int i);
 
-float	dot3(t_vector3_f a, t_vector3_f b)
-{
-	return (a.x * b.x + a.y * b.y + a.z * b.z);
-}
-
-float	frac(float v)
-{
-	return (v - ((long)v));
-}
-
-float	step(float treshold, float v)
-{
-	return (v > treshold);
-}
+#endif
